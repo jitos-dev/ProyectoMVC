@@ -1,18 +1,8 @@
 package com.garciajuanjo.domain;
 
-public class Productos {
+public class Products {
 
     private String cod_product, section, name, price, date, importado, country;
-
-    public Productos(){
-        this.cod_product = "";
-        this.section = "";
-        this.name = "";
-        this.price = "";
-        this.date = "";
-        this.importado = "";
-        this.country = "";
-    }
 
     @Override
     public String toString(){

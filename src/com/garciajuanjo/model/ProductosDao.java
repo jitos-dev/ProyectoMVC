@@ -1,6 +1,6 @@
 package com.garciajuanjo.model;
 
-import com.garciajuanjo.domain.Productos;
+import com.garciajuanjo.domain.Products;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,9 +17,13 @@ public class ProductosDao {
         conexion = new Conexion();
     }
 
-    public List<Productos> getSecciones(){
+    /**
+     * Método que devuelve las distintas secciones que tenemos en la base de datos
+     * @return List<Products> solo con las secciones
+     */
+    public List<Products> getSecciones(){
         Connection connection = conexion.getConnection();
-        List<Productos> secctions = new ArrayList<>();
+        List<Products> secctions = new ArrayList<>();
 
         try {
             String sql = "SELECT DISTINCT seccion FROM productos";
@@ -27,7 +31,7 @@ public class ProductosDao {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()){
-                Productos producto = new Productos();
+                Products producto = new Products();
                 producto.setSection(resultSet.getString(1));
 
                 secctions.add(producto);
@@ -43,9 +47,13 @@ public class ProductosDao {
         return secctions;
     }
 
-    public List<Productos> getPaises(){
+    /**
+     * Método que devuelve los distintos paises que tenemos en la base de datos
+     * @return List<Products> solo con los paises
+     */
+    public List<Products> getPaises(){
         Connection connection = conexion.getConnection();
-        List<Productos> productos = new ArrayList<>();
+        List<Products> productos = new ArrayList<>();
 
         try {
             String sql = "SELECT DISTINCT pais FROM productos";
@@ -53,7 +61,7 @@ public class ProductosDao {
             ResultSet result = statement.executeQuery();
 
             while (result.next()){
-                Productos producto = new Productos();
+                Products producto = new Products();
                 producto.setCountry(result.getString(1));
 
                 productos.add(producto);
@@ -69,9 +77,15 @@ public class ProductosDao {
         return productos;
     }
 
-    public List<Productos> getResultSearch(String country, String section){
+    /**
+     * Método que devuelve los productos en función de los parámetros de busqueda que seleccionemos
+     * @param country valor del JComboBox de countries
+     * @param section valor del JComboBox de sections
+     * @return List<Products> con los productos
+     */
+    public List<Products> getResultSearch(String country, String section){
         Connection connection = conexion.getConnection();
-        List<Productos> productos = new ArrayList<>();
+        List<Products> productos = new ArrayList<>();
         PreparedStatement statement;
 
         try {
@@ -100,7 +114,7 @@ public class ProductosDao {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()){
-                Productos producto = new Productos();
+                Products producto = new Products();
 
                 producto.setName(resultSet.getString(1));
                 producto.setPrice(resultSet.getString(2));

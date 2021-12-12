@@ -1,7 +1,7 @@
 package com.garciajuanjo.controller;
 
 
-import com.garciajuanjo.domain.Productos;
+import com.garciajuanjo.domain.Products;
 import com.garciajuanjo.model.ProductosDao;
 import com.garciajuanjo.view.App;
 
@@ -18,16 +18,20 @@ public class AppController {
         addListenerButton();
     }
 
+    /**
+     * Acción del botón de búsqueda. Cuando pulsamos sobre el recoge los valores de los JComboBox, busca los productos
+     * en la basede datos y los muestra en el JTextArea
+     */
     public void addListenerButton(){
         app.getButton().addActionListener(e -> {
-            String countries = Objects.requireNonNull(app.getPaises().getSelectedItem()).toString();
-            String secctions = Objects.requireNonNull(app.getSecciones().getSelectedItem()).toString();
+            String countries = Objects.requireNonNull(app.getCountries().getSelectedItem()).toString();
+            String secctions = Objects.requireNonNull(app.getSections().getSelectedItem()).toString();
 
-            List<Productos> productos = productosDao.getResultSearch(countries, secctions);
+            List<Products> productos = productosDao.getResultSearch(countries, secctions);
 
-            app.getResultados().setText("");
+            app.getResults().setText("");
             productos.forEach(prducto -> {
-                app.getResultados().append(prducto.toString() + "\n");
+                app.getResults().append(prducto.toString() + "\n");
             });
         });
     }

@@ -1,6 +1,6 @@
 package com.garciajuanjo.view;
 
-import com.garciajuanjo.domain.Productos;
+import com.garciajuanjo.domain.Products;
 import com.garciajuanjo.model.ProductosDao;
 
 import javax.swing.*;
@@ -9,9 +9,9 @@ import java.util.List;
 
 public class App extends JFrame{
 
-    private final JComboBox<String> secciones;
-    private final JComboBox<String> paises;
-    private final JTextArea resultados;
+    private final JComboBox<String> sections;
+    private final JComboBox<String> countries;
+    private final JTextArea results;
     private final JButton button;
 
     public App() {
@@ -24,21 +24,22 @@ public class App extends JFrame{
         JPanel menus = new JPanel();
         menus.setLayout(new FlowLayout());
 
-        secciones = new JComboBox<>();
-        secciones.addItem("Todas");
-        secciones.setPreferredSize(new Dimension(120,25));
+        sections = new JComboBox<>();
+        sections.addItem("Todas");
+        sections.setPreferredSize(new Dimension(120,25));
         addItemsSections(productosDao.getSecciones());
 
-        paises = new JComboBox<>();
-        paises.addItem("Todos");
-        paises.setPreferredSize(new Dimension(120,25));
+        countries = new JComboBox<>();
+        countries.addItem("Todos");
+        countries.setPreferredSize(new Dimension(120,25));
         addItemsCountries(productosDao.getPaises());
 
-        menus.add(secciones);
-        menus.add(paises);
+        menus.add(sections);
+        menus.add(countries);
 
-        resultados = new JTextArea(4,50);
-        JScrollPane scrollPane = new JScrollPane(resultados,
+        //Metemos el JTextArea de los resultados dentro de un JScrollPane para poder verlos todos
+        results = new JTextArea(4,50);
+        JScrollPane scrollPane = new JScrollPane(results,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -53,28 +54,36 @@ public class App extends JFrame{
         setVisible(true);
     }
 
-    private void addItemsSections(List<Productos> list){
+    /**
+     * Método que sirve pera añadir las distintas secciones en el JComboBox de sections cuando iniciamos la app
+     * @param list de products
+     */
+    private void addItemsSections(List<Products> list){
         list.forEach(item -> {
-            secciones.addItem(item.getSection());
+            sections.addItem(item.getSection());
         });
     }
 
-    private void addItemsCountries(List<Productos> list){
+    /**
+     * Método que sirve pera añadir las distintas ciudades en el JComboBox de countries cuando iniciamos la app
+     * @param list de products
+     */
+    private void addItemsCountries(List<Products> list){
         list.forEach(item -> {
-            paises.addItem(item.getCountry());
+            countries.addItem(item.getCountry());
         });
     }
 
-    public JComboBox<String> getSecciones() {
-        return secciones;
+    public JComboBox<String> getSections() {
+        return sections;
     }
 
-    public JComboBox<String> getPaises() {
-        return paises;
+    public JComboBox<String> getCountries() {
+        return countries;
     }
 
-    public JTextArea getResultados() {
-        return resultados;
+    public JTextArea getResults() {
+        return results;
     }
 
     public JButton getButton() {
